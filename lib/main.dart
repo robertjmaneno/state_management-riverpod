@@ -17,7 +17,7 @@ class TaskManagement extends StatefulWidget {
 }
 
 class _TaskManagementState extends State<TaskManagement> {
-  final List _toDoList = [
+  final List<List<dynamic>> _toDoList = [
     ["Code", false],
     ["Attend meeting", false],
     ["Sleep", false],
@@ -25,6 +25,7 @@ class _TaskManagementState extends State<TaskManagement> {
 
   final TextEditingController _controller = TextEditingController();
 
+  // Handle checkbox toggling
   void tickBoxChecked(bool? value, int index) {
     setState(() {
       _toDoList[index][1] = !_toDoList[index][1];
@@ -35,9 +36,7 @@ class _TaskManagementState extends State<TaskManagement> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialogBox(
-          controller: _controller,
-        );
+        return AlertDialogBox(controller: _controller);
       },
     ).then((value) {
       if (value != null && value.isNotEmpty) {
@@ -47,6 +46,12 @@ class _TaskManagementState extends State<TaskManagement> {
         _controller.clear();
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override

@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:task_management/pages/button.dart';
 
 class AlertDialogBox extends StatelessWidget {
-  TextEditingController controller = TextEditingController();
-  AlertDialogBox({super.key, required this.controller});
+  final TextEditingController controller;
+
+  const AlertDialogBox({
+    super.key,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,18 +18,30 @@ class AlertDialogBox extends StatelessWidget {
           children: [
             TextField(
               controller: controller,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(), hintText: 'Add task'),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Add task',
+              ),
             ),
             const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                MyButton(name: "Cancel", onPressed: () {}),
+                MyButton(
+                  name: "Cancel",
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
                 const SizedBox(width: 7),
-                MyButton(name: "Add", onPressed: () {}),
+                MyButton(
+                  name: "Add",
+                  onPressed: () {
+                    Navigator.of(context).pop(controller.text.trim());
+                  },
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),
