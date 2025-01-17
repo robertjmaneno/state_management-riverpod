@@ -46,11 +46,12 @@ const List<Product> allProducts = [
       image: 'assets/products/guitar.png'),
 ];
 
-final reducedProductsProvider = Provider((ref) {
-  return allProducts.where((p) => p.price < 50).toList();
-});
-
 @riverpod
 List<Product> products(ref) {
   return allProducts;
+}
+
+@riverpod
+List<Product> reducedProductsProvider(ref) {
+  return allProducts.where((p) => p.price < 50).toList();
 }

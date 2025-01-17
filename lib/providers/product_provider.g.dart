@@ -22,5 +22,24 @@ final productsProvider = AutoDisposeProvider<List<Product>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef ProductsRef = AutoDisposeProviderRef<List<Product>>;
+String _$reducedProductsProviderHash() =>
+    r'311bbcbcb083c67d039eaf0dc895c24b2b0fe985';
+
+/// See also [reducedProductsProvider].
+@ProviderFor(reducedProductsProvider)
+final reducedProductsProviderProvider =
+    AutoDisposeProvider<List<Product>>.internal(
+  reducedProductsProvider,
+  name: r'reducedProductsProviderProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$reducedProductsProviderHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef ReducedProductsProviderRef = AutoDisposeProviderRef<List<Product>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
