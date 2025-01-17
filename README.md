@@ -1,4 +1,4 @@
-# riverpod_files
+# state management - riverpod
 
 A new Flutter project.
 
