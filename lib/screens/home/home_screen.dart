@@ -30,19 +30,29 @@ class HomeScreen extends ConsumerWidget {
           itemBuilder: (context, index) {
             return Container(
                 padding: const EdgeInsets.all(20),
+                // ignore: deprecated_member_use
                 color: Colors.blueGrey.withOpacity(0.05),
                 child: Column(children: [
                   Image.asset(allProducts[index].image, width: 60, height: 60),
                   Text(allProducts[index].title),
-                  Text('£${allProducts[index].price}'),
+                  Text(
+                      "\$ ${allProducts[index].price?.toStringAsFixed(2) ?? '0.00'}"),
                   if (cartProducts.contains(allProducts[index]))
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        ref
+                            .read(cartNotifierProvider.notifier)
+                            .removeProduct(allProducts[index]);
+                      },
                       child: const Text('Remove'),
                     ),
                   if (!cartProducts.contains(allProducts[index]))
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        ref
+                            .read(cartNotifierProvider.notifier)
+                            .addProduct(allProducts[index]);
+                      },
                       child: const Text('Add to Cart'),
                     ),
                 ]));

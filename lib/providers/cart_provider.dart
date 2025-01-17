@@ -5,17 +5,32 @@ class CartNotifier extends Notifier<Set<Product>> {
   //initial value
   @override
   Set<Product> build() {
-    return const {
-      Product(
-          id: '4',
-          title: 'Red Backpack',
-          price: 14,
-          image: 'assets/products/backpack.png'),
-    };
+    return const {};
   }
 
   // methods to update state
+
+  void addProduct(Product product) {
+    if (!state.contains(product)) {
+      state = {...state, product};
+    }
+  }
+
+  void removeProduct(Product product) {
+    if (state.contains(product)) {
+      state = state.where((p) => p.id != product.id).toSet();
+    }
+  }
 }
+
+final cartTotalNotifier = Provider<int>((ref) {
+  final productsInCart = ref.watch(cartNotifierProvider);
+  int total = 0;
+  for (Product product in productsInCart) {
+    total += product.price;
+  }
+  return total;
+});
 
 final cartNotifierProvider = NotifierProvider<CartNotifier, Set<Product>>(() {
   return CartNotifier();
